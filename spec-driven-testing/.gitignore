@@ -1,0 +1,24 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+
+## Rider / VS
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+## OS
+.DS_Store
+Thumbs.db
+
+## Build output
+out/
+publish/
+*.log
+
+## Spec-driven workspace (generated artifacts)
+docs/specs/*/drafts/
