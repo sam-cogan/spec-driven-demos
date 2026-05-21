@@ -36,6 +36,14 @@ land in the right place. Sign in to GitHub Copilot.
    specify init --here --integration copilot --force --no-git
    ```
 
+   > **About `--no-git`:** this only skips `git init`. Spec Kit's runtime git
+   > integration — the branch `/speckit.specify` creates and the commits it
+   > makes — still works, because git resolves to the **outer** `spec-driven-demos`
+   > repo. The feature branch (e.g. `001-book-reservations`) will be created
+   > there. If you are running this demo standalone (this folder cloned on its
+   > own, not inside the parent monorepo), drop `--no-git` so Spec Kit can
+   > initialise a fresh repo for you.
+
 3. Show what got added in the file tree:
    - `.specify/` — templates, scripts, configuration.
    - `memory/constitution.md` — the (empty) constitution waiting to be populated.
@@ -183,3 +191,108 @@ land in the right place. Sign in to GitHub Copilot.
   Demo 2 (`spec-driven-testing`) showed using specs to drive test creation.
   This demo shows what an off-the-shelf spec-driven toolkit does for the same
   problem.
+
+---
+
+## Reference — How Spec Kit uses Git and folders
+
+A short cheat-sheet of what Spec Kit does to your repository so you know what
+to expect (and what to commit).
+
+### Files created at init time
+
+`specify init --here --integration copilot` lays down:
+
+| Path | Purpose | Commit? |
+| --- | --- | --- |
+| `.specify/` | Templates, scripts, and per-project config used by every slash command. | Yes |
+| `memory/constitution.md` | Repo-wide governing principles. Populated by `/speckit.constitution`. | Yes |
+| `.github/prompts/speckit.*.prompt.md` | One file per slash command (`constitution`, `specify`, `clarify`, `plan`, `tasks`, `analyze`, `implement`, …). This is how Copilot learns the commands. | Yes |
+| `.specify/state/` (if present) | Local CLI state. | No — gitignore. |
+
+Nothing under `src/` is touched at init time.
+
+### What `/speckit.specify` does
+
+1. Reads `.specify/` to find the **next feature number** using the configured
+   `--branch-numbering` strategy (default: `sequential`, so `001`, `002`, …;
+   alternative: `timestamp`).
+2. Generates a kebab-case slug from your feature description, e.g.
+   `book-reservations`.
+3. Creates a Git branch named `NNN-slug` (e.g. `001-book-reservations`) from
+   the current branch and **switches to it**.
+4. Creates `specs/NNN-slug/` and writes `spec.md` from the template.
+5. Commits the new spec on the new branch.
+
+> If Spec Kit was initialised with `--no-git`, or you're in a non-git directory,
+> set the `SPECIFY_FEATURE` env var (e.g. `export SPECIFY_FEATURE=001-book-reservations`)
+> so subsequent slash commands know which feature folder to operate on. With
+> git, the current branch name is used automatically.
+
+### What ends up in `specs/NNN-slug/`
+
+One folder per feature, all artefacts together:
+
+```
+specs/
+└── 001-book-reservations/
+    ├── spec.md           ← /speckit.specify (+ updates from /speckit.clarify)
+    ├── plan.md           ← /speckit.plan
+    ├── research.md       ← /speckit.plan
+    ├── data-model.md     ← /speckit.plan
+    ├── contracts/        ← /speckit.plan (OpenAPI fragments, etc.)
+    ├── quickstart.md     ← /speckit.plan
+    ├── tasks.md          ← /speckit.tasks
+    └── checklists/       ← /speckit.checklist (optional)
+```
+
+Each slash command after `/speckit.specify` operates on the feature folder
+matching the **current branch**. Switching branches switches "active feature".
+
+### Branch lifecycle
+
+```
+main ──●────────────────────────────●──── (merge PR) ────●────►
+        \                          /
+         ●──●──●──●──●──●──●──●──●     001-book-reservations
+         ↑   ↑      ↑      ↑     ↑
+         |   |      |      |     └─ /speckit.implement commits
+         |   |      |      └─ /speckit.tasks
+         |   |      └─ /speckit.plan (multiple commits)
+         |   └─ /speckit.clarify (updates spec.md)
+         └─ /speckit.specify creates branch + spec.md
+```
+
+- Branch creation, checkout, and commits are all done by Spec Kit.
+- Merging back to `main` is **your** job — typically via a normal PR. Spec Kit
+  never pushes or opens PRs on its own.
+- The `memory/constitution.md` change is usually committed on `main` (or its
+  own branch) **before** running `/speckit.specify`, because it applies to
+  every feature thereafter.
+
+### Multiple features in flight
+
+Each feature lives on its own branch and in its own `specs/NNN-…/` folder, so
+they don't collide. To work on a second feature in parallel:
+
+```bash
+git checkout main
+# in Copilot Chat:
+/speckit.specify Add overdue-loan notifications …
+# → creates branch 002-overdue-loan-notifications and specs/002-…/
+```
+
+### Effect of `--no-git` in this monorepo
+
+Because this demo lives inside the outer `spec-driven-demos` repo, we passed
+`--no-git` at init time to avoid a nested `.git/`. The consequence:
+
+- `/speckit.specify` creates the `001-book-reservations` branch on the **outer**
+  repo, not on a per-demo repo.
+- All Spec Kit commits land on that outer-repo branch.
+- The `specs/001-book-reservations/` folder is scoped to this demo folder, so
+  the diff is still localised; only the branch is shared.
+
+If you instead cloned `spec-driven-speckit/` on its own, you would omit
+`--no-git`, Spec Kit would `git init` a fresh repo, and branches would be
+self-contained.
