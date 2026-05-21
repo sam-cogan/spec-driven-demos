@@ -38,22 +38,7 @@ Apply a rigorous, checklist-driven review and record the verdict in the file its
 
 ## Review section template
 
-```markdown
-## Review
-
-- **Reviewer:** tech-lead
-- **Date:** <YYYY-MM-DD>
-- **Verdict:** Approve | Request changes
-
-### Findings
-
-- [ ] (blocker | suggestion) <specific, actionable comment with line/section reference>
-- ...
-
-### Next step
-
-<one sentence — e.g. "Hand off to solution-architect to design", or "Author should address blockers and re-submit">
-```
+Append the Review section using the exact structure in [`references/review-section-template.md`](./references/review-section-template.md).
 
 ## Tone
 

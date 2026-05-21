@@ -16,7 +16,7 @@ Produce a task list a developer can execute top-to-bottom without rethinking the
    - Be independently buildable — the project compiles after each task.
    - Have a clear "done" check (file exists, endpoint returns 200, test passes).
 3. Order tasks so that each one can rely on the previous ones being merged.
-4. Write `docs/specs/<slug>/plan.md` using the template below.
+4. Write `docs/specs/<slug>/plan.md` using the structure in [`references/plan-template.md`](./references/plan-template.md).
 5. Offer the "Start implementation" handoff.
 
 ## Ordering heuristic
@@ -27,32 +27,6 @@ Produce a task list a developer can execute top-to-bottom without rethinking the
 4. Wire-up in `Program.cs`.
 5. Tests (integration first, then unit).
 6. Docs / README updates.
-
-## Template
-
-```markdown
-# Implementation Plan: <Feature title>
-
-- **Architecture:** [architecture.md](./architecture.md)
-- **Status:** draft
-- **Owner:** tech-lead
-- **Created:** <YYYY-MM-DD>
-
-## Tasks
-
-> Check off each item only when the project builds and any associated tests pass.
-
-- [ ] **1. <Task title>** — <one-sentence description>
-  - Files: `path/to/file.cs`
-  - Done when: <observable check>
-- [ ] **2. ...**
-  - Files: ...
-  - Done when: ...
-
-## Out-of-plan changes
-
-Anything required that we discover during implementation goes here as a new checkbox — never edit existing tasks silently.
-```
 
 ## Quality bar
 

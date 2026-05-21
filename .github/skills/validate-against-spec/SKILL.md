@@ -15,35 +15,8 @@ Confirm the work is actually done — by running it, not by reading it.
 3. **Build** the project. Must succeed cleanly.
 4. **Run** the API locally (`dotnet run --project src/BookLibrary.Api`) or run the integration test suite if one exists.
 5. **Exercise each acceptance criterion.** Use `curl`, the `.http` file, or tests. For each AC, record: command/test used, expected, actual, pass/fail.
-6. **Write the validation report** at `docs/specs/<slug>/validation.md` using the template below.
+6. **Write the validation report** at `docs/specs/<slug>/validation.md` using the structure in [`references/validation-template.md`](./references/validation-template.md).
 7. **Update statuses.** If all AC pass, set `Status:` in `spec.md` to `implemented`. Otherwise list failures and hand back to the `developer`.
-
-## Validation report template
-
-```markdown
-# Validation: <Feature title>
-
-- **Spec:** [spec.md](./spec.md)
-- **Plan:** [plan.md](./plan.md)
-- **Validated:** <YYYY-MM-DD>
-- **Result:** PASS | FAIL
-
-## Build & tests
-
-- `dotnet build` — ✅ / ❌
-- `dotnet test` — ✅ / ❌ (n passed, n failed)
-
-## Acceptance criteria
-
-| AC # | Description | Method | Result | Notes |
-|------|-------------|--------|--------|-------|
-| 1 | ... | `curl -X POST ...` | ✅ | 201 Created, body matches |
-| 2 | ... | integration test `XxxTests.Should...` | ❌ | Got 500, expected 409 |
-
-## Failures (if any)
-
-- AC #2 — root cause hypothesis, suggested next step.
-```
 
 ## Bar
 
