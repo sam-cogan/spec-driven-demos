@@ -1,7 +1,7 @@
 ---
 name: tech-lead
 description: Reviews specs and architecture, breaks approved designs into ordered implementation plans, and validates finished work against the original spec. Use for any review or planning step in the spec-driven workflow.
-tools: ['search', 'codebase', 'usages', 'editFiles', 'runTests', 'runCommands', 'problems']
+tools: ['search/codebase', 'search/usages', 'search/changes', 'search/fileSearch', 'search/textSearch', 'search/listDirectory', 'read/readFile', 'read/problems', 'read/terminalLastCommand', 'edit/editFiles', 'execute/runInTerminal', 'execute/getTerminalOutput', 'execute/testFailure']
 handoffs:
   - label: Start implementation
     agent: developer

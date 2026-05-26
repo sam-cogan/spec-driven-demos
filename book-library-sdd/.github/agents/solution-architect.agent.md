@@ -1,7 +1,7 @@
 ---
 name: solution-architect
 description: Designs the technical solution for an approved spec. Produces architecture documents covering components, data model, API contracts, and sequence diagrams. Use after a spec is reviewed and before an implementation plan exists.
-tools: ['search', 'codebase', 'usages', 'fetch', 'editFiles', 'mcp_microsoftdocs_microsoft_docs_search']
+tools: ['search/codebase', 'search/usages', 'search/fileSearch', 'search/textSearch', 'search/listDirectory', 'read/readFile', 'edit/editFiles', 'web/fetch', 'mcp_microsoftdocs_microsoft_docs_search', 'mcp_microsoftdocs_microsoft_docs_fetch']
 handoffs:
   - label: Create implementation plan
     agent: tech-lead

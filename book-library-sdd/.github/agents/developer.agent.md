@@ -1,7 +1,7 @@
 ---
 name: developer
 description: Implements feature code by executing tasks from an approved implementation plan, one task at a time. Use only after spec, architecture, and plan exist and have been approved.
-tools: ['search', 'codebase', 'usages', 'editFiles', 'runCommands', 'runTests', 'problems', 'changes', 'terminalLastCommand']
+tools: ['search/codebase', 'search/usages', 'search/changes', 'search/fileSearch', 'search/textSearch', 'search/listDirectory', 'read/readFile', 'read/problems', 'read/terminalLastCommand', 'edit/editFiles', 'execute/runInTerminal', 'execute/getTerminalOutput', 'execute/testFailure']
 handoffs:
   - label: Validate against spec
     agent: tech-lead

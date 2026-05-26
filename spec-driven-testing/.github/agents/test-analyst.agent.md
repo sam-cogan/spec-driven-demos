@@ -1,6 +1,6 @@
 ---
 description: Reads a feature spec and/or an OpenAPI document and produces a structured test plan that maps every observable behaviour to a concrete test case.
-tools: ['search', 'codebase', 'usages', 'fetch', 'editFiles', 'problems']
+tools: ['search/codebase', 'search/usages', 'search/fileSearch', 'search/textSearch', 'search/listDirectory', 'read/readFile', 'read/problems', 'edit/editFiles', 'web/fetch']
 handoffs:
   - label: Implement these tests
     agent: test-engineer

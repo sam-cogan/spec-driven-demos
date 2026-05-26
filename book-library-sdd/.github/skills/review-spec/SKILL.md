@@ -19,11 +19,15 @@ Apply a rigorous, checklist-driven review and record the verdict in the file its
 ## Checklist — for a spec
 
 - **Clarity** — could a new engineer implement this without asking the author questions?
-- **Testability** — is every acceptance criterion observable? Could you write a test for it today?
+- **Functional vs non-functional split** — are functional requirements (`FR-`) and non-functional requirements (`NFR-`) in separate sections, each with stable IDs?
+- **NFR coverage** — has every NFR category in the template (performance, security, reliability, observability, accessibility, compliance) either been populated or explicitly marked as "not applicable" with a reason?
+- **NFRs are measurable** — no "fast", "secure", "scalable" without a number, threshold, or named standard.
+- **Testability** — is every acceptance criterion observable? Could you write a test for it today? Does each AC cite the `FR-`/`NFR-` IDs it covers?
+- **AC traceability** — does every `FR-` and every measurable `NFR-` have at least one AC covering it? Is there at least one AC for a non-functional requirement?
 - **Scope** — are non-goals listed? Is the scope small enough to deliver in days, not weeks?
 - **No solution leakage** — does the spec describe *what* and *why*, not *how*?
-- **Consistency** — do user stories, acceptance criteria, and the problem statement align?
-- **Open questions** — are unresolved assumptions called out rather than buried?
+- **Consistency** — do user stories, requirements, acceptance criteria, and the problem statement align?
+- **Open questions** — are unresolved assumptions called out rather than buried? NFR ambiguities (load, auth, SLOs, data sensitivity) deserve special attention.
 
 ## Checklist — for an architecture
 

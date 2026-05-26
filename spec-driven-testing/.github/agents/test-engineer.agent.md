@@ -1,6 +1,6 @@
 ---
 description: Implements the test cases from a test plan as runnable xUnit tests against the ASP.NET Core API using WebApplicationFactory.
-tools: ['search', 'codebase', 'usages', 'editFiles', 'runCommands', 'runTests', 'problems', 'changes', 'terminalLastCommand']
+tools: ['search/codebase', 'search/usages', 'search/changes', 'search/fileSearch', 'search/textSearch', 'search/listDirectory', 'read/readFile', 'read/problems', 'read/terminalLastCommand', 'edit/editFiles', 'execute/runInTerminal', 'execute/getTerminalOutput', 'execute/testFailure']
 handoffs:
   - label: Triage failures
     agent: test-analyst
